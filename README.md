@@ -177,3 +177,202 @@ Press 'u' during simulation
 
 - Graphics: Terminal only (no GPU required)
 
+## Development
+
+### Building from Source
+
+```
+# Method 1: Using Makefile (Recommended)
+make build      # Standard build
+make debug      # Build with debug symbols
+make release    # Optimized build
+make clean      # Clean build files
+
+# Method 2: Using CMake directly
+mkdir build && cd build
+cmake ..        # Linux/macOS
+cmake -G "MinGW Makefiles" ..  # Windows
+make -j4
+
+# Method 3: Quick build (no CMake)
+make quick      # Direct compilation
+```
+
+### Running Tests
+
+```
+# Run all tests
+make test
+
+# Expected output:
+╔══════════════════════════════════════════════════════╗
+║                   TEST SUMMARY                       ║
+╠══════════════════════════════════════════════════════╣
+║ Total Tests:  8                                      ║
+║ Passed:       8                                      ║
+║ Failed:       0                                      ║
+║ Success Rate: 100.0%                                 ║
+║ Status:       ✅ ALL TESTS PASSED                    ║
+╚══════════════════════════════════════════════════════╝
+```
+
+## Code Structure Deep Dive
+
+### RTOS Scheduler
+
+```
+// Key data structures
+typedef struct {
+    void (*task_func)(void*);
+    uint32_t priority;
+    uint32_t period_ms;
+    char name[16];
+    uint32_t run_count;
+} task_t;
+
+// Scheduling algorithm
+task_t* find_highest_priority_task(void) {
+    // Implements priority-based selection
+    // with round-robin for same priority
+}
+```
+
+### Kalman Filter
+
+```
+// Kalman filter update step
+float kalman1d_update(kalman_t* kf, float measurement) {
+    kf->p = kf->p + kf->q;                    // Prediction
+    kf->k = kf->p / (kf->p + kf->r);          // Kalman gain
+    kf->x = kf->x + kf->k * (measurement - kf->x); // Update
+    kf->p = (1.0f - kf->k) * kf->p;           // Covariance update
+    return kf->x;
+}
+```
+
+### OTA Bootloader
+
+```
+// Firmware validation
+bootloader_error_t validate_firmware(uint32_t address) {
+    // Check magic number
+    // Verify CRC32
+    // Validate size
+    // Check entry point
+    // Return validation status
+}
+```
+
+## Skills Demonstrated
+
+### Embedded Systems Engineering
+
+- Real-Time Operating Systems: Custom scheduler design, task management
+
+- Hardware Abstraction: Virtual peripheral simulation, register-level emulation
+
+- Interrupt Handling: Simulated interrupt service routines
+
+- Memory Management: Flash emulation, memory-mapped I/O
+
+- Power Management: Sleep modes, power state simulation
+
+### Algorithms & Data Structures
+
+- Kalman Filtering: State estimation, noise reduction
+
+- Circular Buffers: Efficient data handling
+
+- CRC Algorithms: Error detection implementation
+
+- Priority Queues: Task scheduling
+
+- Binary Protocols: Data packing/unpacking
+
+### Software Architecture
+
+- Modular Design: Clean separation of concerns
+
+- Layered Architecture: HAL, drivers, application layers
+
+- Interface Design: Clean APIs between modules
+
+- Error Handling: Comprehensive error detection/recovery
+
+- Testing Strategy: Unit, integration, system tests
+
+###  Development Practices
+
+- Build Systems: CMake, Makefile automation
+
+- Cross-Platform: Windows/Linux/macOS compatibility
+
+- Version Control: Git with proper commit history
+
+- Documentation: Comprehensive README, code comments
+
+- Code Quality: Consistent style, error checking\
+
+### Development Workflow
+
+```
+# 1. Fork the repository
+# 2. Create a feature branch
+git checkout -b feature/amazing-feature
+
+# 3. Make your changes
+# 4. Run tests
+make test
+
+# 5. Commit changes
+git commit -m "Add amazing feature"
+
+# 6. Push to branch
+git push origin feature/amazing-feature
+
+# 7. Create Pull Request
+```
+
+## Acknowledgments
+
+- Inspiration: Real-world embedded systems and RTOS implementations
+
+- Tools: GCC, CMake, VS Code, and the open-source community
+
+- Testing: All contributors who helped test on various platforms
+
+- Community: Embedded systems developers sharing knowledge online
+
+##  Get Started Now!
+
+```
+# Clone and run in under 2 minutes
+git clone https://github.com/yourusername/EmbedRTOS.git
+cd EmbedRTOS
+
+# Build (30 seconds)
+make build
+
+# Run the simulator
+make run
+
+# Explore the code
+code .  # Opens in VS Code with full configuration
+```
+## License
+
+```
+MIT License
+
+Copyright (c) 2024 Vikas Narasimha
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
