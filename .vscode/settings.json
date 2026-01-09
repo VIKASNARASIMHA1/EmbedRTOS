@@ -1,0 +1,16 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "*.h": "c"
+    },
+    "editor.formatOnSave": false,
+    "C_Cpp.intelliSenseEngine": "default",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "cmake.configureSettings": {
+        "CMAKE_MAKE_PROGRAM": "C:/msys64/mingw64/bin/mingw32-make.exe"
+    },
+    "files.exclude": {
+        "**/build": true,
+        "**/.git": true
+    }
+}
